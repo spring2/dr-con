@@ -7,3 +7,9 @@ https://maori.geek.nz/scalable-architecture-dr-con-docker-registrator-consul-con
 and from his tutorial repo here:
 
 https://github.com/grahamjenson/DR-CoN/.
+
+build:
+```docker build . -t drcon```
+
+run:
+```docker run -d --name drcon -e "CONSUL=[consul ip:port]" -e "SERVICE=[service name]" -p 80:80 drcon```
