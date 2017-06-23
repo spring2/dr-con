@@ -24,7 +24,7 @@ COPY template.txt c:/nginx/template.txt
 COPY conf c:/nginx/conf
 	
 # Replace template with token and run nginx. Launch consul-template to watch for the given service name
-CMD ((gc template.txt) -replace ':SERVICE:', $env:SERVICE) | Out-File -Encoding UTF8 $env:CT_FILE; \
+CMD ((gc template.txt) -replace ':SERVICE:', $env:SERVICE).trim() | Out-File -Encoding ASCII $env:CT_FILE; \
 	start-process nginx.exe; \ 
 	do { $nginx = (get-process nginx -ea silentlycontinue); $i++; start-sleep -s 1; write-host 'Waiting for nginx ({0}s)' -f $i;} while ($nginx -eq $null -and $i -lt 10); \
 	if ($nginx -eq $null) { write-host 'nginx failed to start.'; exit 1; }; \
